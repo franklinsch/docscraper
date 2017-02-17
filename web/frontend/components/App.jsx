@@ -1,6 +1,6 @@
 import React from 'react';
 import LiveView from './LiveView.jsx';
-import Navbar from './Navbar.jsx';
+import NavigationBar from './NavigationBar.jsx';
 
 export default class App extends React.Component {
 
@@ -41,7 +41,7 @@ export default class App extends React.Component {
 
     return (
       <div>
-        <Navbar/>
+        <NavigationBar/>
 
         <LiveView
           values = {liveViewValues} 
