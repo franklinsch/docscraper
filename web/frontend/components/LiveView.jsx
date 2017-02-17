@@ -3,21 +3,12 @@ import {Table} from 'react-materialize';
 
 export default class LiveView extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      values: [{
-        name: "fs2014",
-        latestProcess: "vim",
-        latestComputer: "texel02",
-        lastSeen: "2017-02-17"
-      }]
-    }
+  static propTypes = {
+    values: React.PropTypes.array
   }
 
   render() {
-    const values = this.state.values || [];
+    const values = this.props.values || [];
 
     return (
       <Table>
@@ -32,9 +23,9 @@ export default class LiveView extends React.Component {
 
         <tbody> 
           {
-            values.map((value) => {
+            values.map((value, i) => {
               return (
-                <tr>
+                <tr key={i}>
                   <td>{value.name}</td>
                   <td>{value.latestProcess}</td>
                   <td>{value.latestComputer}</td>
