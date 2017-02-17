@@ -1,15 +1,16 @@
+import sys
 from subprocess import check_output, CalledProcessError
 from multiprocessing import Process, Queue
 from Queue import Empty
 
 machinesCounts = [
   ('matrix', 44),
-  ('line', 38),
+#('line', 38),
 #('cider', 6),
-  ('graphic', 30),
-  ('ray', 40),
-  ('point', 60),
-  ('voxel', 27)]
+#('graphic', 30),
+#('ray', 40),
+#('point', 60),
+('voxel', 27)]
 
 def allLabMachines(): 
   ret = ''
@@ -25,7 +26,8 @@ def allLabMachines():
 def sshOne(machine, command, queue):
   try:
     out = ""
-    out = check_output(['ssh', '-o', 'StrictHostKeyChecking=no', machine, command])
+    out = check_output(['ssh', '-o', 'StrictHostKeyChecking=no', 
+        '-o ConnectTimeout=5', machine, command])
   except CalledProcessError:
     out = ""
   finally:
@@ -53,10 +55,12 @@ def sshAll(command):
     except Empty:
       pass
     
-    print(str(i) + '/' + str(len(processes)))
+    #print(str(i) + '/' + str(len(processes)))
     i += 1
 
-  print(output)
+  return output
 
 
-sshAll('w')
+
+if __name__ == '__main__':
+  print (sshAll('w'))
