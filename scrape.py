@@ -5,12 +5,12 @@ from Queue import Empty
 
 machinesCounts = [
   ('matrix', 44),
-#('line', 38),
-#('cider', 6),
-#('graphic', 30),
-#('ray', 40),
-#('point', 60),
-('voxel', 27)]
+  ('line', 38),
+  ('cider', 6),
+  ('graphic', 30),
+  ('ray', 40),
+  ('point', 60),
+  ('voxel', 27)]
 
 def allLabMachines(): 
   ret = ''
@@ -21,7 +21,7 @@ def allLabMachines():
         istr = '0'+str(i)
       ret+= name+istr + '\n'
   return ret
-#return 'matrix01\nmatrix02'
+
 
 def sshOne(machine, command, queue):
   try:
@@ -54,13 +54,14 @@ def sshAll(command):
       output += q.get(timeout=TIMEOUT)
     except Empty:
       pass
-    
-    #print(str(i) + '/' + str(len(processes)))
     i += 1
+    print(str(i) +  '/' +  str(len(processes)))
 
   return output
 
 
 
+COMMAND = 'w | tail -n +3 | awk \'{print $1, $5, $8}\''
+
 if __name__ == '__main__':
-  print (sshAll('w'))
+  print (sshAll(COMMAND))
