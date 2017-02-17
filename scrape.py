@@ -12,12 +12,12 @@ machinesCounts = [
   ('point', 60),
   ('voxel', 27)]
 
-def allLabMachines(): 
+def allLabMachines():
   ret = ''
   for (name, num) in machinesCounts:
     for i in range(1,num):
-      istr = str(i) 
-      if (i < 10): 
+      istr = str(i)
+      if (i < 10):
         istr = '0'+str(i)
       ret+= name+istr + '\n'
   return ret
@@ -26,7 +26,7 @@ def allLabMachines():
 def sshOne(machine, command, queue):
   try:
     out = ""
-    out = check_output(['ssh', '-o', 'StrictHostKeyChecking=no', 
+    out = check_output(['ssh', '-o', 'StrictHostKeyChecking=no',
         '-o ConnectTimeout=5', machine, command])
   except CalledProcessError:
     out = ""
@@ -42,7 +42,7 @@ def sshAll(command):
   for machine in machines:
     p = Process(target=sshOne, args = (machine, command, q))
     processes.append(p)
-    
+
   for process in processes:
     process.start()
 
@@ -59,7 +59,16 @@ def sshAll(command):
 
   return output
 
-
+def process(allData):
+  out = []
+    for line in allData.split('\n'):
+      line = line.split()
+      user = line[0]
+      idle = int(line[1])
+      process = line[2].split('/')[-1]
+      if (idle > 60):
+        out.append({'username': user, 'process': process})
+  return out
 
 COMMAND = 'w | tail -n +3 | awk \'{print $1, $5, $8}\''
 
