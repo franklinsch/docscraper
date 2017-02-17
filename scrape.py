@@ -47,7 +47,11 @@ def sshAll(command):
   i = 1
   for process in processes:
     process.join(TIMEOUT)
-    output += q.get(timeout=TIMEOUT)
+    try:
+      output += q.get(timeout=TIMEOUT)
+    except queue.Empty:
+      pass
+    
     print(str(i) + '/' + str(len(processes)))
     i += 1
 
