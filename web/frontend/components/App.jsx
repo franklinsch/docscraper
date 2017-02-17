@@ -1,11 +1,14 @@
 import React from 'react';
-import LiveView from './LiveView';
+import {Navbar, NavItem} from 'react-materialize';
+import LiveView from './LiveView.jsx';
 
 export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Navbar brand='DoC Scraper'/>
+        <Navbar brand='DoC Scraper' right>
+        </Navbar>
+
         <LiveView/>
       </div>
     )
