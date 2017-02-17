@@ -60,14 +60,20 @@ def sshAll(command):
   return output
 
 def process(allData):
-  out = []
+  out = {}
     for line in allData.split('\n'):
       line = line.split()
       user = line[0]
-      idle = '.' in line[1]
+      active = '.' in line[1]
       process = line[2].split('/')[-1]
-      if (idle):
-        out.append({'username': user, 'process': process})
+      if (active):
+        if (user in out):
+          if (process in out[user]):
+            out[user][process] += 1
+          else:
+            out[user][process] = 1
+        else:
+          out[user] = {process: 1}
   return out
 
 COMMAND = 'w | tail -n +3 | awk \'{print $1, $5, $8}\''
