@@ -4,16 +4,20 @@ const path = require('path');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 module.exports = {
-  entry: [
-    // Set up an ES6-ish environment
-    'babel-polyfill',
+  //entry: [
+    //// Set up an ES6-ish environment
+    //'babel-polyfill',
 
-    // Add your application's scripts below
-    path.join(__dirname, 'client.js')
-  ],
+    //// Add your application's scripts below
+    //path.join(__dirname, 'client.js'),
+  //],
+  entry: {
+    index: "./frontend/index",
+    leaderboard: "./frontend/leaderboard"
+  },
   output: {
     path: path.join(__dirname, 'public'),
-    filename: 'bundle.js'
+    filename: '[name].entry.js'
   },
   module: {
     loaders: [{

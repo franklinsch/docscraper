@@ -21,6 +21,10 @@ app.get('/', function (req, res) {
   res.sendFile(path.resolve('public/index.html'))
 })
 
+app.get('/leaderboard', function (req, res) {
+  res.sendFile(path.resolve('public/leaderboard.html'))
+})
+
 function _sendLiveView(connection) {
   connection.send(JSON.stringify({
     type: "liveview",
