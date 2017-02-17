@@ -1,5 +1,6 @@
 from subprocess import check_output, CalledProcessError
 from multiprocessing import Process, Queue
+from Queue import Empty
 
 machinesCounts = [
   ('matrix', 44),
@@ -49,7 +50,7 @@ def sshAll(command):
     process.join(TIMEOUT)
     try:
       output += q.get(timeout=TIMEOUT)
-    except queue.Empty:
+    except Empty:
       pass
     
     print(str(i) + '/' + str(len(processes)))
