@@ -64,9 +64,9 @@ def process(allData):
     for line in allData.split('\n'):
       line = line.split()
       user = line[0]
-      idle = int(line[1])
+      idle = '.' in line[1]
       process = line[2].split('/')[-1]
-      if (idle > 60):
+      if (idle):
         out.append({'username': user, 'process': process})
   return out
 
