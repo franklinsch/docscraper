@@ -1,9 +1,13 @@
 import React from 'react';
+import LiveView from './LiveView';
 
 export default class App extends React.Component {
   render() {
     return (
-      <p>Hello world!</p>
+      <div>
+        <Navbar brand='DoC Scraper'/>
+        <LiveView/>
+      </div>
     )
   }
 }
