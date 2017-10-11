@@ -66,6 +66,8 @@ def process(allData):
   out = {}
   for line in allData.split('\n'):
     line = line.split()
+    if len(line) < 3:
+      continue
     user = line[0]
     active = '.' in line[1]
     process = line[2].split('/')[-1]
@@ -82,4 +84,4 @@ def process(allData):
 COMMAND = 'w | tail -n +3 | awk \'{print $1, $5, $8}\''
 
 if __name__ == '__main__':
-  print (sshAll(COMMAND))
+  print process(sshAll(COMMAND))
