@@ -5,21 +5,24 @@ from Queue import Empty
 
 machinesCounts = [
   ('matrix', 44),
+  ('sprite', 38),
   ('line', 38),
   ('cider', 6),
   ('graphic', 30),
   ('ray', 40),
+  ('edge', 40),
   ('point', 60),
-  ('voxel', 27)]
+  ('voxel', 27)
+]
 
 def allLabMachines():
   ret = ''
-  for (name, num) in machinesCounts:
-    for i in range(1,num):
+  for name, num in machinesCounts:
+    for i in range(1, num):
       istr = str(i)
-      if (i < 10):
-        istr = '0'+str(i)
-      ret+= name+istr + '\n'
+      if i < 10:
+        istr = '0' + str(i)
+      ret += name + istr + '\n'
   return ret
 
 
@@ -61,19 +64,19 @@ def sshAll(command):
 
 def process(allData):
   out = {}
-    for line in allData.split('\n'):
-      line = line.split()
-      user = line[0]
-      active = '.' in line[1]
-      process = line[2].split('/')[-1]
-      if (active):
-        if (user in out):
-          if (process in out[user]):
-            out[user][process] += 1
-          else:
-            out[user][process] = 1
+  for line in allData.split('\n'):
+    line = line.split()
+    user = line[0]
+    active = '.' in line[1]
+    process = line[2].split('/')[-1]
+    if active:
+      if user in out:
+        if process in out[user]:
+          out[user][process] += 1
         else:
-          out[user] = {process: 1}
+          out[user][process] = 1
+      else:
+        out[user] = {process: 1}
   return out
 
 COMMAND = 'w | tail -n +3 | awk \'{print $1, $5, $8}\''
